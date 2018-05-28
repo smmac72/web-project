@@ -6,44 +6,58 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>сайтик.хтмл</title>
     <style>
-        .main_menu {
-            width: 200px;
-            height: 100vh;
-            position: fixed;
-            left: -200px;
-            top: 0;
-            background: gray;
-            transition: .4s;
+        #chara {
+            width: 14%;
+            position: absolute; 
+            margin: auto;
+            top: 60%;
+            transition: .5s;
         }
-        .menu_open {
+        .ground {
+            height: 10%;
+            width: 100%;
+            background: #000;
             position: absolute;
-            width: 30px;
-            height: 30px;
-            right: 30px;
-            top: 0;
-            background: red;
-        }
-        .main_menu-open {
+            margin: auto;
             left: 0;
+            top: 90%;
         }
-        @media (min-width: 768px) {
-            .main_menu {
-                height: auto;
-                width: 100%;
-                position: relative;
-            }
+        .notmirror { 
+            transform: scale(1, 1); 
+        }
+        .mirror { 
+            transform: scale(-1, 1); 
         }
     </style>
 </head>
-
 <body>
-    <div id="menu" class="main_menu">
-        <div id="button" class="menu_open"></div>
-    </div>
+    <div class="ground"></div>
+    <img id="chara" style="left: 1px" src="https://orig00.deviantart.net/c935/f/2016/292/2/3/dat_boi_gif_by_buttholefrommars19-dallmiv.gif" alt="">
+ 
+    <canvas id="game"></canvas>
     <script>
-        button.addEventListener('click', function(){
-            menu.classList.toggle('main_menu-open')
-        })
+        let ctx = game.getContext('2d')
+        let coord = 0   
+        let turn = 1  
+        obj = document.getElementById('chara');
+
+        function keydown(e){
+            if (e.keyCode == 39){
+                if (turn == 0){
+                    turn = 1;
+                    obj.className = 'notmirror';
+                }
+                obj.style.left = parseInt(obj.style.left) + 5 + 'px';
+            }
+            if (e.keyCode == 37 && parseInt(obj.style.left) > 0){
+                if (turn == 1){
+                    turn = 0;
+                    obj.className = 'mirror';
+                }
+                obj.style.left = parseInt(obj.style.left) - 5 + 'px';
+            }
+        }
+        document.addEventListener('keydown', keydown)
     </script>
 </body>
 </html>

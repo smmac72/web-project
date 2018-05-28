@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>сайтик.хтмл</title>
+    <title>мемесы.хтмл</title>
     <style>
         #chara {
             width: 14%;
@@ -12,6 +12,49 @@
             margin: auto;
             top: 60%;
             transition: .5s;
+        }
+        #oldtv {
+            position: absolute; 
+            width: 15%;
+            margin: auto;
+            top: 30%;
+            left: 5%;
+            transition: .5s;
+        }
+        #tv {
+            position: absolute; 
+            width: 15%;
+            margin: auto;
+            top: 30%;
+            left: 30%;
+            transition: .5s;
+        }
+        #newtv {
+            position: absolute; 
+            width: 15%;
+            margin: auto;
+            top: 30%;
+            left: 55%;
+            transition: .5s;
+        }
+        #besttv {
+            position: absolute; 
+            width: 15%;
+            margin: auto;
+            top: 30%;
+            left: 80%;
+            transition: .5s;
+        }
+        .sky {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 90%;
+            width: 300%;
+            display: inline-block;
+            vertical-align: top;
+            background: #9C3860;
+            max-width: 100%;
         }
         .ground {
             height: 10%;
@@ -31,30 +74,61 @@
     </style>
 </head>
 <body>
+    <div class="sky"></div>
     <div class="ground"></div>
     <img id="chara" style="left: 1px" src="https://orig00.deviantart.net/c935/f/2016/292/2/3/dat_boi_gif_by_buttholefrommars19-dallmiv.gif" alt="">
- 
+    <img id="oldtv" src="https://avatanplus.com/files/resources/mid/5780fdceb1356155cfdf6f86.png" alt="">
+    <img style="opacity: 0" id="tv" src="http://a-service.kharkov.ua/img/visred/remont-televizorov-i-monitorov-xarkov02.png" alt="">
+    <img style="opacity: 0" id="newtv" src="http://pngimg.com/uploads/tv/tv_PNG39228.png" alt="">
+    <img style="opacity: 0" id="besttv" src="http://pngimg.com/uploads/tv/tv_PNG39292.png" alt="">
     <canvas id="game"></canvas>
     <script>
-        let ctx = game.getContext('2d')
-        let coord = 0   
-        let turn = 1  
+        let coord = 0;   
+        let turn = 1;  
+        let move = 0;
+        let act1 = 1, act2 = 0, act3 = 0, act4 = 0;
         obj = document.getElementById('chara');
-
+        tv1 = document.getElementById('oldtv');
+        tv2 = document.getElementById('tv');
+        tv3 = document.getElementById('newtv');
+        tv4 = document.getElementById('besttv');
         function keydown(e){
             if (e.keyCode == 39){
                 if (turn == 0){
                     turn = 1;
                     obj.className = 'notmirror';
                 }
-                obj.style.left = parseInt(obj.style.left) + 5 + 'px';
+                if (parseInt(obj.style.left) < screen.width - 350) {
+                    obj.style.left = parseInt(obj.style.left) + 25 + 'px';
+                }
+                if (parseInt(obj.style.left) > screen.width * 0.25 && act1 == 1) {
+                    act1 = 0;
+                    act2 = 1;
+                    tv1.style.opacity = 0.0;
+                    tv2.style.opacity = 100.0;
+                }
+                if (parseInt(obj.style.left) > screen.width * 0.5 && act2 == 1) {
+                    act2 = 0;
+                    act3 = 1;
+                    tv2.style.opacity = 0.0;
+                    tv3.style.opacity = 100.0;
+                }
+                if (parseInt(obj.style.left) > screen.width * 0.75 && act3 == 1) {
+                    act3 = 0;
+                    act4 = 1;
+                    tv3.style.opacity = 0.0;
+                    tv4.style.opacity = 100.0;
+                }
             }
             if (e.keyCode == 37 && parseInt(obj.style.left) > 0){
                 if (turn == 1){
                     turn = 0;
                     obj.className = 'mirror';
                 }
-                obj.style.left = parseInt(obj.style.left) - 5 + 'px';
+                console.log(obj.style.left);
+                if (parseInt(obj.style.left) > 0) {
+                    obj.style.left = parseInt(obj.style.left) - 25 + 'px';
+                }
             }
         }
         document.addEventListener('keydown', keydown)
